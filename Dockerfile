@@ -11,6 +11,10 @@ RUN apt-get install binutils make --yes
 RUN apt-get install gettext --yes
 # Needed for gdb
 RUN apt-get install libncurses5-dev --yes
+# Install python2 and pexpect for tester
+RUN apt-get install python python-pip --yes
+RUN pip install pexpect
+
 # Install gcc 3.4 to compile the MIPS cross compiler
 RUN apt-get install wget --yes
 RUN mkdir -p /tmp
