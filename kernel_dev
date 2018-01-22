@@ -12,16 +12,16 @@ ASSIGNMENT_NUM=${3:-$ASSIGNMENT_NUM}
 I3_WORKSPACE_NUM=10
 I3_WORKSPACE_NUM=${4:-$I3_WORKSPACE_NUM}
 
-BUILD_CMD="cd ~/ece344/os161/kern/conf && ./config $ASSIGNMENT && cd ~/ece344/os161/kern/compile/$ASSIGNMENT && make depend && make && make install && cd ~/ece344 || bash"
-RUN_CMD="cd ~/ece344/root && sys161 kernel"
-RUN_WITH_DEBUG_CMD="cd ~/ece344/root && sys161 -w kernel"
+BUILD_CMD="cd ~/ece344/os161/kern/conf && ./config $ASSIGNMENT && cd ~/ece344/os161/kern/compile/$ASSIGNMENT && make depend && make && make install"
+RUN_CMD="cd ~/ece344/root && sys161 kernel ; bash"
+RUN_WITH_DEBUG_CMD="cd ~/ece344/root && sys161 -w kernel ; bash"
 GDB_CMD="\"target\ remote\ unix:.sockets/gdb\""
 DEBUG_CMD="echo $GDB_CMD >> ~/.gdbinit && cd ~/ece344/root && cs161-gdb kernel"
 TEST_CMD="cd ~/ece344/root && export PATH=\"\\\$HOME/ece344/tester/bin:\\\$PATH\" && os161-tester $ASSIGNMENT_NUM"
 
 build() {
     i3-msg workspace $I3_WORKSPACE_NUM
-    gnome-terminal -- bash -c "docker run --name ece344 --volume "$(pwd):/root/ece344" -it --rm tech4me/ece344:latest bash -c \"$BUILD_CMD\""
+    gnome-terminal -- bash -c "docker run --name ece344 --volume "$(pwd):/root/ece344" -it --rm tech4me/ece344:latest bash -c \"$BUILD_CMD ; bash\""
 }
 
 build_run() {
